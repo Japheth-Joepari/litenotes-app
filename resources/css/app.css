@@ -9,4 +9,8 @@
     .btn-lg {
         @apply px-6 py-3;
     }
+
+    .w-full {
+        color: black;
+    }
 }

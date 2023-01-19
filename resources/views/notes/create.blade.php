@@ -17,6 +17,7 @@
                         placeholder="Title"
                         class="w-full rounded-md border-gray-300"
                         autocomplete="off"
+                        value="@old('title')"
                         ></input>
                         @error('title')
                             <div class="text-red-600 text-sm">{{ $message }}</div>
@@ -28,7 +29,7 @@
                         field="text"
                         placeholder="Start typing here..."
                         class="w-full mt-6 rounded-md border-gray-300"
-                       ></textarea>
+                       >{{@old('text')}}</textarea>
                        @error('text')
                             <div class="text-red-600 text-sm">{{ $message }}</div>
                         @enderror
