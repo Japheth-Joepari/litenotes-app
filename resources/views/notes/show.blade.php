@@ -19,7 +19,7 @@
                 <form action="{{ route('notes.destroy', $note) }}" method="post">
                     @method("delete")
                     @csrf
-                    <button class="btn btn-danger ml-4" type="submit" onclick="return confirm('Do you really want to delete this note ?')">Destroy</button>
+                    <button class="btn btn-danger ml-4" type="submit" onclick="return confirm('Do you really want to delete this note ?')">Trash this Note ?</button>
                 </form>
             </div>      
             <div class="my-6 p-6 bg-white border-b border-gray-200 shadow-sm sm:rounded-lg"> 

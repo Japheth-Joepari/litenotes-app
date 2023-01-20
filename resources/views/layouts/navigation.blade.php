@@ -15,7 +15,13 @@
                     <x-nav-link :href="route('notes.index')" :active="request()->routeIs('notes.index')">
                         {{ __('Notes') }}
                     </x-nav-link>
+
+                    <x-nav-link :href="{{route('trash.index')}}" :active="request()->routeIs('trash.index')">
+                        {{ __('Trashed Items') }}
+                    </x-nav-link>
                 </div>
+
+                
             </div>
 
             <!-- Settings Dropdown -->
@@ -69,6 +75,10 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('notes.index')" :active="request()->routeIs('notes.index')">
                 {{ __('Notes') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('notes.index')" :active="request()->routeIs('notes.index')">
+                {{ __('Trashed Items') }}
             </x-responsive-nav-link>
         </div>
 

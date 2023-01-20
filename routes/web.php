@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\NoteController;
-
+use App\Http\Controllers\TrashedNoteController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,3 +33,4 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 Route::resource("/notes", NoteController::class)->middleware("auth");
+Route::get('/traashed', [TrashedNoteController::class, 'index'])->name('trashed.index')->middleware("auth");
