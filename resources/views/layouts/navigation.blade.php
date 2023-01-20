@@ -16,8 +16,8 @@
                         {{ __('Notes') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="{{route('trash.index')}}" :active="request()->routeIs('trash.index')">
-                        {{ __('Trashed Items') }}
+                    <x-nav-link :href="route('trash.index')" :active="request()->routeIs('trash.index')">
+                        {{ __('Trashed') }}
                     </x-nav-link>
                 </div>
 

@@ -33,4 +33,11 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 Route::resource("/notes", NoteController::class)->middleware("auth");
-Route::get('/traashed', [TrashedNoteController::class, 'index'])->name('trashed.index')->middleware("auth");
+
+
+Route::get('/trash', [TrashedNoteController::class, 'index'])->name('trash.index')->middleware("auth");
+
+Route::get('/trash/{note}', [TrashedNoteController::class, 'show'])->name('trash.show')->withTrashed()->middleware("auth");
+
+
+Route::get('/trash/{note}', [TrashedNoteController::class, 'update'])->name('trash.update')->withTrashed()->middleware("auth");
