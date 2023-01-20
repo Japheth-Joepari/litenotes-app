@@ -25,21 +25,24 @@
                 </form>
             </div>  
             @else
-            <div class="flex w-100">
+            <div class="flex w-100 ">
                 <p class="opacity-70"> <strong>Created: </strong> {{ $note->created_at->diffForHumans()}}</p>
                 <p class="opacity-70 px-8"> <strong>Updated: </strong> {{ $note->updated_at->diffForHumans()}}</p>
                 <p class="opacity-70"> <strong>Deleted: </strong> {{ $note->deleted_at->diffForHumans()}}</p>
 
-                <form action="{{ route('trashed.update', $note) }}" method="post">
-                    @method("put")
-                    <button class="btn-link ml-auto" type="submit">Restore Note</button>
-                </form>
-
-                <form action="{{ route('notes.destroy', $note) }}" method="post">
-                    @method("delete")
-                    @csrf
-                    <button class="btn btn-danger ml-4" type="submit" onclick="return confirm('Do you really want to delete this note ?')">Permanently Delete ?</button>
-                </form>
+                <div class="ml-auto flex ">
+                    <form action="{{ route('trash.update', $note) }}" method="post">
+                        @method("put")
+                        @csrf
+                        <button class="btn-link ml-auto" type="submit" >Restore Note</button>
+                    </form>
+    
+                    <form action="{{ route('trash.destroy', $note) }}" method="post">
+                        @method("delete")
+                        @csrf
+                        <button class="btn btn-danger ml-4" type="submit" onclick="return confirm('Do you really want to delete this note Forever ? This action cannot be undone...')">Delete Forever ?</button>
+                    </form>
+                </div>
             </div> 
             @endif
             <div class="my-6 p-6 bg-white border-b border-gray-200 shadow-sm sm:rounded-lg"> 

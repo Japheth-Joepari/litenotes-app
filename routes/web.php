@@ -35,9 +35,9 @@ require __DIR__.'/auth.php';
 Route::resource("/notes", NoteController::class)->middleware("auth");
 
 
-Route::get('/trash', [TrashedNoteController::class, 'index'])->name('trash.index')->middleware("auth");
-
-Route::get('/trash/{note}', [TrashedNoteController::class, 'show'])->name('trash.show')->withTrashed()->middleware("auth");
-
-
-Route::get('/trash/{note}', [TrashedNoteController::class, 'update'])->name('trash.update')->withTrashed()->middleware("auth");
+Route::prefix('/trash')->name('trash.')->middleware('auth')->group(function () {
+    Route::get('/', [TrashedNoteController::class, 'index'])->name('index');
+    Route::get('/{note}', [TrashedNoteController::class, 'show'])->name('show')->withTrashed();
+    Route::put('/{note}', [TrashedNoteController::class, 'update'])->name('update')->withTrashed();
+    Route::delete('/{note}', [TrashedNoteController::class, 'destroy'])->name('destroy')->withTrashed();
+});
