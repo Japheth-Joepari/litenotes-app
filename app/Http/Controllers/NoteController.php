@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Models\Note;
 use Illuminate\Support\Facades\Auth;
 
@@ -48,6 +49,7 @@ class NoteController extends Controller
         ]);
 
         Note::create([
+            'uuid' => Str::uuid(),
             'user_id' => Auth::id(),
             'title' => $request->title,
             'text' => $request->text,
@@ -62,10 +64,13 @@ class NoteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Note $note)
     {
-        $note = Note::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
-        return view('notes.show')->with("note", $note);
+        // $note = Note::where('uuid', $uuid)->where('user_id', Auth::id())->firstOrFail();
+         if($note->user_id != Auth::id()){
+            return abort(403);
+        };
+        return view('notes.show')->with('note', $note);
     }
 
     /**
@@ -74,9 +79,12 @@ class NoteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Note $note)
     {
-        //
+       if($note->user_id != Auth::id()){
+            return abort(403);
+        };
+        return view('notes.edit')->with('note', $note);   
     }
 
     /**
@@ -86,9 +94,23 @@ class NoteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Note $note)
     {
-        //
+        if($note->user_id != Auth::id()){
+            return abort(403);
+        };
+
+        $request->validate([
+            'title' => 'required|max:120',
+            'text' => 'required',
+        ]);
+        $note->update([
+            'uuid' => Str::uuid(),
+            'user_id' => Auth::id(),
+            'title' => $request->title,
+            'text' => $request->text,
+        ]);
+        return to_route('notes.index');
     }
 
     /**
@@ -97,8 +119,14 @@ class NoteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, Note $note)
     {
-        //
+        if($note->user_id != Auth::id()){
+            return abort(403);
+        };
+        
+    
+        $note->delete();
+        return to_route('notes.index');
     }
 }
