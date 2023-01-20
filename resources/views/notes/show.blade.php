@@ -6,7 +6,12 @@
     </x-slot>
 
     <div class="py-12 text-black w-100">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 w-100">     
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 w-100">
+            @if(session('success')) 
+                <div class="mb-4 px-4 py-2 bg-green border border-green-200 text-geen-700 rounded-md">
+                    {{ session('success')}}
+                </div>
+            @endif    
             <div class="flex w-100">
                 <p class="opacity-70"> <strong>Created: </strong> {{ $note->created_at->diffForHumans()}}</p>
                 <p class="opacity-70 px-8"> <strong>Updated: </strong> {{ $note->updated_at->diffForHumans()}}</p>
